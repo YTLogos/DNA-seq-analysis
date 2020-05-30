@@ -3,6 +3,7 @@
 ### Databases for variants
 * [Disease Variant Store](https://rvs.u.hpc.mssm.edu/divas/)
 * [The ExAC Browser: Displaying reference data information from over 60,000 exomes](https://github.com/konradjk/exac_browser)
+* [Pathogenic Germline Variants in 10,389 Adult Cancers](https://www.cell.com/cell/fulltext/S0092-8674(18)30363-5)
 
 **Important paper** [DNA damage is a major cause of sequencing errors, directly confounding variant identification](http://biorxiv.org/content/early/2016/08/19/070334)
 
@@ -52,13 +53,48 @@ Also, read this [post](https://standage.github.io/on-genomic-interval-notation.h
 
 Also read [The UCSC Genome Browser Coordinate Counting Systems](http://genome.ucsc.edu/blog/the-ucsc-genome-browser-coordinate-counting-systems/)
 
+* [Which human reference genome to use?](https://lh3.github.io/2017/11/13/which-human-reference-genome-to-use) by Heng Li
+
+TL;DR: If you map reads to GRCh37 or hg19, use hs37-1kg:
+
+ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/technical/reference/human_g1k_v37.fasta.gz
+If you map to GRCh37 and believe decoy sequences help with better variant calling, use hs37d5:
+
+ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz
+If you map reads to GRCh38 or hg38, use the following:
+
+ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz
+
+* [Reference Genome Components](https://software.broadinstitute.org/gatk/documentation/article?id=7857) by GATK team.
+
+* [Human genome reference builds - GRCh38/hg38 - b37 - hg19](https://software.broadinstitute.org/gatk/documentation/article?id=11010) by GATK team.
+
+### some useful tools for preprocessing
+
+* [FastqPuri](https://github.com/jengelmann/FastqPuri) fastq quality assessment and filtering tool.
+* [fastp](https://github.com/OpenGene/fastp) A tool designed to provide fast all-in-one preprocessing for FastQ files. This tool is developed in C++ with multithreading supported to afford high performance. really promising, take a look!
+* A new tool [bazam](https://github.com/ssadedin/bazam) A read extraction and realignment tool for next generation sequencing data. Take a look!
+* [bwa-mem2](https://github.com/bwa-mem2/bwa-mem2) exact the same results of bwa-mem, 80% faster!
+
+### check sample swapping
+
+* [somalier](https://github.com/brentp/somalier) sample-swap checking directly on BAMs/CRAMs for cancer data
+
 ### Mutation caller, structural variant caller
 
+* [sample-swap checking directly on BAMs/CRAMs for cancer data](https://github.com/brentp/somalier)
 * paper [Making the difference: integrating structural variation detection tools](http://bib.oxfordjournals.org/content/16/5/852.short?rss=1&utm_source=twitterfeed&utm_medium=twitter)
+* [Mapping and characterization of structural variation in 17,795 deeply sequenced human genomes](https://www.biorxiv.org/content/early/2018/12/31/508515)
 * [GATK HaplotypeCaller Analysis of BWA (mem) mapped Illumina reads](http://wiki.bits.vib.be/index.php/GATK_HaplotypeCaller_Analysis_of_BWA_(mem)_mapped_Illumina_reads)
 * [NGS-DNASeq_GATK-session.pdf](https://github.com/crazyhottommy/DNA-seq-analysis/files/94758/NGS-DNASeq_GATK-session.pdf)  
 * [GATK pipeline](https://github.com/crazyhottommy/GATK-pipeline)  
 * [An ensemble approach to accurately detect somatic mutations using SomaticSeq](http://www.genomebiology.com/2015/16/1/197#B14) [tool github page](https://github.com/bioinform/somaticseq/)
+* [A synthetic-diploid benchmark for accurate variant-calling evaluation](https://www.nature.com/articles/s41588-018-0165-1) A benchmark dataset from Heng Li. [github repo](https://github.com/lh3/CHM-eval)
+* [Strelka2: fast and accurate calling of germline and somatic variants](https://github.com/Illumina/strelka) paper: https://www.nature.com/articles/s41592-018-0051-x
+* [lancet](https://github.com/nygenome/lancet) is a somatic variant caller (SNVs and indels) for short read data. Lancet uses a localized micro-assembly strategy to detect somatic mutation with high sensitivity and accuracy on a tumor/normal pair. paper: https://www.nature.com/articles/s42003-018-0023-9
+*  [needlestack](https://github.com/IARCbioinfo/needlestack) an ultra-sensitive variant caller for multi-sample next
+generation sequencing data. This tool seems to be very useful for multi-region tumor sample analysis. [paper](https://www.biorxiv.org/content/biorxiv/early/2019/05/21/639377.full.pdf)
+
 * [lumpy](https://github.com/arq5x/lumpy-sv)
 * [wham](https://github.com/zeeev/wham)
 * [SV-Bay](https://github.com/InstitutCurie/SV-Bay )  
@@ -67,7 +103,16 @@ Also read [The UCSC Genome Browser Coordinate Counting Systems](http://genome.uc
 >Delly is the best sv caller in the DREAM challenge
 https://www.synapse.org/#!Synapse:syn312572/wiki/70726
 
-*[SV caller benchmark](http://shiny.wehi.edu.au/cameron.d/sv_benchmark)*
+* [SV caller benchmark](http://shiny.wehi.edu.au/cameron.d/sv_benchmark)*
+* [Comprehensive evaluation of structural variation detection algorithms for whole genome sequencing]
+(https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1720-5)
+* [Comprehensive evaluation and characterisation of short read general-purpose structural variant calling software](https://www.nature.com/articles/s41467-019-11146-4)
+* [Genotyping structural variants in pangenome graphs using the vg toolkit (https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-1949-z)
+* [SVAFotate](https://github.com/fakedrtom/SVAFotate) Annotate a (lumpy) structual variant (SV) VCF with allele frequencies (AFs) from large population SV cohorts (currently CCDG and/or gnomAD) with a simple command line tool.
+* [Comprehensively benchmarking applications for detecting copy number variation](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007069) Our results show that the sequencing depth can strongly affect CNV detection. Among the ten applications benchmarked, LUMPY performs best for both high sensitivity and specificity for each sequencing depth. 
+
+
+* Bent Perderson works on [smoove](https://github.com/brentp/smoove) which improves upon lumpy.
 
 * [COSMOS](http://seselab.org/cosmos/): Somatic Large Structural Variation Detector
 * Fusion And Chromosomal Translocation Enumeration and Recovery Algorithm [(FACTERA)](https://factera.stanford.edu/)  
@@ -99,7 +144,9 @@ A database of Deleterious Synonymous Mutation, a continually updated database th
 
 * [Standard operating procedure for somatic variant refinement of tumor sequencing data](https://www.biorxiv.org/content/early/2018/02/21/266262) 
 
-* [Variant Review with the Integrative Genomics Viewer(https://www.ncbi.nlm.nih.gov/pubmed/29092934)
+* [Variant Review with the Integrative Genomics Viewer](https://www.ncbi.nlm.nih.gov/pubmed/29092934)
+
+* [Skyhawk: An Artificial Neural Network-based discriminator for reviewing clinically significant genomic variant](https://www.biorxiv.org/content/early/2018/05/01/311985)
 
 ### Third generation sequencing for Structural variants (works on short reads as well!)
 * [beautiful “Ribbon” viewer to visualize complicated SVs revealed by PacBio reads](http://genomeribbon.com/) [github page](https://github.com/MariaNattestad/ribbon)
@@ -116,6 +163,7 @@ A database of Deleterious Synonymous Mutation, a continually updated database th
 * [InteractionSet](https://bioconductor.org/packages/release/bioc/html/InteractionSet.html) useful for Hi-C, ChIA-PET. I used it for [Breakpoints clustering for structural variants](http://crazyhottommy.blogspot.com/2016/03/breakpoints-clustering-for-structural.html)
 * [Paired Genomic Loci Tool Suite](https://github.com/billgreenwald/pgltools) `gpltools intersect` can do breakpoint merging.
 * [svtools](https://github.com/hall-lab/svtools) Tools for processing and analyzing structural variants.
+* [sveval](https://github.com/jmonlong/sveval) Functions to compare a SV call sets against a truth set.
 * [Teaser](https://github.com/Cibiv/Teaser) A tool to benchmark mappers and different parameters within minutes.
 
 **A series of posts from Brad Chapman**  
@@ -134,6 +182,8 @@ A database of Deleterious Synonymous Mutation, a continually updated database th
 * [bioconductor copy number work flow](https://www.bioconductor.org/help/course-materials/2014/SeattleOct2014/B02.2.3_CopyNumber.html)
 * [paper: Assessing the reproducibility of exome copy number variations predictions](http://www.ncbi.nlm.nih.gov/pubmed/27503473?dopt=Abstract&utm_source=dlvr.it&utm_medium=twitter)
 * [CNVkit](https://github.com/etal/cnvkit) A command-line toolkit and Python library for detecting copy number variants and alterations genome-wide from targeted DNA sequencing.
+* [SavvyCNV: genome-wide CNV calling from off-target reads](https://www.biorxiv.org/content/10.1101/617605v2)
+* [dryclean](https://github.com/mskilab/dryclean) Robust foreground detection in somatic copy number data https://www.biorxiv.org/content/10.1101/847681v2
 
 ### Tools for visulization 
 1. [New app gene.iobio](http://iobio.io/)  
@@ -156,6 +206,7 @@ A database of Deleterious Synonymous Mutation, a continually updated database th
 * [signeR](http://bioconductor.org/packages/release/bioc/html/signeR.html)
 * [deconstructSigs](https://github.com/raerose01/deconstructSigs)
 * [MutationalPatterns](https://github.com/CuppenResearch/MutationalPatterns)
+* [sigminer](https://github.com/ShixiangWang/sigminer/tree/devel): an easy-to-use and scalable toolkit for genomic alteration signature analysis and visualization in R
 
 ### Tools for MAF files
 TCGA has all the variants calls in MAF format. Please read a [post](https://www.biostars.org/p/69222/) by Cyriac Kandoth. 
@@ -163,6 +214,7 @@ TCGA has all the variants calls in MAF format. Please read a [post](https://www.
 1. [convert vcf to MAF](https://github.com/mskcc/vcf2maf): perl script by Cyriac Kandoth.
 2. once converted to MAF, one can use this [MAFtools](https://github.com/PoisonAlien/maftools) to do visualization: oncoprint wraps complexHeatmap, Lollipop and Mutational Signatures etc. Very cool, I just found it...
 3. [MutationalPatterns](https://github.com/CuppenResearch/MutationalPatterns): an integrative R package for studying patterns in base substitution catalogues
+
 
 ### Tools for bam files
 
@@ -244,4 +296,5 @@ A comprehensive resource for the clinical relevance of tumor-immune infiltration
 
 * A review paper 2016: [Single-cell genome sequencing:current state of the science](http://www.nature.com/nrg/journal/v17/n3/abs/nrg.2015.16.html) 
 * [Monovar](http://www.nature.com/nmeth/journal/vaop/ncurrent/full/nmeth.3835.html): single-nucleotide variant detection in single cells
-
+* [R2C2: Improving nanopore read accuracy enables the sequencing of highly-multiplexed full-length single-cell cDNA](https://www.biorxiv.org/content/early/2018/06/04/338020)
+* [sci-LIANTI](https://www.biorxiv.org/content/early/2018/06/04/338053), a high-throughput, high-coverage single-cell DNA sequencing method that combines single-cell combinatorial indexing (sci) and linear amplification via transposon insertion (LIANTI)
